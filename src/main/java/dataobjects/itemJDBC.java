@@ -5,7 +5,7 @@ import java.util.List;
 
 import domain.Item;
 
-public class itemJDBC {
+public class ItemJDBC {
 
     private static List<Item> items;
     private static Connection databaseConnection;
@@ -19,34 +19,34 @@ public class itemJDBC {
     public static List<Item> select() {
         items = new ArrayList<Item>();
         try {
-            itemJDBC.databaseConnection = Database.connect();
-            itemJDBC.statement = itemJDBC.databaseConnection.prepareStatement(SQL_SELECT);
-            ResultSet dataResult = itemJDBC.statement.executeQuery();
+            ItemJDBC.databaseConnection = Database.connect();
+            ItemJDBC.statement = ItemJDBC.databaseConnection.prepareStatement(SQL_SELECT);
+            ResultSet dataResult = ItemJDBC.statement.executeQuery();
             while (dataResult.next()) {
                 int itemId = dataResult.getInt("item_id");
                 String itemName = dataResult.getString("item_name");
                 double itemPrice = dataResult.getDouble("item_price");
-                itemJDBC.items.add(new Item(itemId, itemName, itemPrice));
+                ItemJDBC.items.add(new Item(itemId, itemName, itemPrice));
             }
-            Database.close(itemJDBC.databaseConnection, itemJDBC.statement, dataResult);
+            Database.close(ItemJDBC.databaseConnection, ItemJDBC.statement, dataResult);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace(System.out);
         }
-        return itemJDBC.items;
+        return ItemJDBC.items;
     }
 
     public static void insert(Item item) {
         
         try {
-            itemJDBC.databaseConnection = Database.connect();
-            itemJDBC.statement = itemJDBC.databaseConnection.prepareStatement(SQL_INSERT);
+            ItemJDBC.databaseConnection = Database.connect();
+            ItemJDBC.statement = ItemJDBC.databaseConnection.prepareStatement(SQL_INSERT);
             
-            itemJDBC.statement.setString(1, item.getItemName());
-            itemJDBC.statement.setDouble(2, item.getItemPrice());
+            ItemJDBC.statement.setString(1, item.getItemName());
+            ItemJDBC.statement.setDouble(2, item.getItemPrice());
 
-            itemJDBC.statement.executeUpdate();
-            Database.close(itemJDBC.databaseConnection, itemJDBC.statement);
+            ItemJDBC.statement.executeUpdate();
+            Database.close(ItemJDBC.databaseConnection, ItemJDBC.statement);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace(System.out);
@@ -55,15 +55,15 @@ public class itemJDBC {
 
     public static void update(Item item) {
         try {
-            itemJDBC.databaseConnection = Database.connect();
-            itemJDBC.statement = itemJDBC.databaseConnection.prepareStatement(SQL_UPDATE);
+            ItemJDBC.databaseConnection = Database.connect();
+            ItemJDBC.statement = ItemJDBC.databaseConnection.prepareStatement(SQL_UPDATE);
             
-            itemJDBC.statement.setString(1, item.getItemName());
-            itemJDBC.statement.setDouble(2, item.getItemPrice());
-            itemJDBC.statement.setInt(3, item.getItemId());
+            ItemJDBC.statement.setString(1, item.getItemName());
+            ItemJDBC.statement.setDouble(2, item.getItemPrice());
+            ItemJDBC.statement.setInt(3, item.getItemId());
 
-            itemJDBC.statement.executeUpdate();
-            Database.close(itemJDBC.databaseConnection, itemJDBC.statement);
+            ItemJDBC.statement.executeUpdate();
+            Database.close(ItemJDBC.databaseConnection, ItemJDBC.statement);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace(System.out);
@@ -72,13 +72,13 @@ public class itemJDBC {
 
     public static void delete(Item item) {
         try {
-            itemJDBC.databaseConnection = Database.connect();
-            itemJDBC.statement = itemJDBC.databaseConnection.prepareStatement(SQL_DELETE);
+            ItemJDBC.databaseConnection = Database.connect();
+            ItemJDBC.statement = ItemJDBC.databaseConnection.prepareStatement(SQL_DELETE);
             
-            itemJDBC.statement.setInt(1, item.getItemId());
+            ItemJDBC.statement.setInt(1, item.getItemId());
 
-            itemJDBC.statement.executeUpdate();
-            Database.close(itemJDBC.databaseConnection, itemJDBC.statement);
+            ItemJDBC.statement.executeUpdate();
+            Database.close(ItemJDBC.databaseConnection, ItemJDBC.statement);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace(System.out);
