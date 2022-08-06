@@ -28,8 +28,17 @@ public class AdminOperation implements Operation{
             switch (option) {
                 case 1: viewItems(); 
                     break;
-            
-                default:
+                
+                case 2: addItem();
+                    break;
+
+                case 3: modifyItem();
+                    break;
+
+                case 4: deleteItem();
+                    break;
+
+                default: System.out.println("Option incorrect. Try again."); menu();
                     break;
             }
         } catch (NumberFormatException e) {
@@ -41,18 +50,91 @@ public class AdminOperation implements Operation{
     }   
 
     private void viewItems() {
-        List<Item> items = ItemJDBC.select();
-        items.forEach(item -> {
+        try {
+            List<Item> items = ItemJDBC.select();
+            items.forEach(item -> {
             System.out.println(item);
-        });
+            });
+
+            String menu;
+            boolean equals_Y;
+            boolean equals_N;
+            
+            do {
+                System.out.println("Return to menu? Type 'Y' for Yes or 'N' to exit.");
+                menu = reader.readLine();
+                equals_Y = menu.equalsIgnoreCase("Y");
+                equals_N = menu.equalsIgnoreCase("N");
+                if (menu.equalsIgnoreCase("Y") || menu.equalsIgnoreCase("N")) {
+                    if (menu.equalsIgnoreCase("Y")) {
+                        menu();
+                    } else {
+                        goodBye();  
+                    }    
+                } 
+            } while (!equals_Y && !equals_N);
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+        }
+        
     }
 
+    private void addItem() {
+        try {
+            System.out.print("Item Name: ");
+            String itemName = reader.readLine();
+
+            System.out.print("Item Price: ");
+            double itemPrice = Double.parseDouble(reader.readLine());
+
+            Item item = new Item(itemName, itemPrice);
+            ItemJDBC.insert(item);
+            viewItems();
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+        }
+    }
+
+    private void modifyItem() {
+        try {
+            System.out.println("Item id to be modified:");
+            int itemId = Integer.parseInt(reader.readLine());
+
+            System.out.print("New Item Name: ");
+            String itemName = reader.readLine();
+
+            System.out.print("New Item Price: ");
+            double itemPrice = Double.parseDouble(reader.readLine());
+
+            Item item = new Item(itemId, itemName, itemPrice);
+            ItemJDBC.update(item);
+            viewItems();
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+        }
+    }
+
+    private void deleteItem() {
+        try {
+            System.out.println("Item id to be deleted:");
+            int itemId = Integer.parseInt(reader.readLine());
+
+            Item item = new Item(itemId);
+            ItemJDBC.delete(item);
+            viewItems();
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+        }
+    }
 
     @Override
-    public String goodBye() {
-        // TODO Auto-generated method stub
-        return null;    
-
+    public void goodBye() {
+        try {
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+        }
+        System.out.println("Admin User Logging Out...");    
     }
     
 

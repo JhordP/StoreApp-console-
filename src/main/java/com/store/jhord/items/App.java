@@ -1,5 +1,4 @@
 package com.store.jhord.items;
-import java.util.List;
 import operational.*;
 
 public class App 
@@ -8,7 +7,5 @@ public class App
     {
         Operation execute = new AdminOperation();
         execute.menu();
-        // List<Item> itemlist = ItemJDBC.select();
-        // itemlist.forEach(item -> { System.out.println(item); });
     }
 }
