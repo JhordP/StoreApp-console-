@@ -47,15 +47,10 @@ public class AdminOperation implements Operation{
             System.out.println(e.getMessage()+e.getStackTrace());
         }
         
-    }   
-
-    private void viewItems() {
+    }
+    
+    public void backToMenu() {
         try {
-            List<Item> items = ItemJDBC.select();
-            items.forEach(item -> {
-            System.out.println(item);
-            });
-
             String menu;
             boolean equals_Y;
             boolean equals_N;
@@ -76,7 +71,15 @@ public class AdminOperation implements Operation{
         } catch (IOException e) {
             e.printStackTrace(System.out);
         }
+    }
+
+    public void viewItems() {
         
+        List<Item> items = ItemJDBC.select();
+        items.forEach(item -> {
+        System.out.println(item);
+        });
+        backToMenu();
     }
 
     private void addItem() {

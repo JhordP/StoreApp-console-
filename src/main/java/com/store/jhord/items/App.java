@@ -5,7 +5,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        Operation execute = new AdminOperation();
+        Operation execute = new UserOperation();
         execute.menu();
     }
 }
