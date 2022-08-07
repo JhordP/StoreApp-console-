@@ -10,6 +10,7 @@ public class UserOperation implements Operation{
     BufferedReader reader;
     Item product;
     private static List<Item> shoppingCart;
+    double total;
 
     public UserOperation() {
         UserOperation.shoppingCart = new ArrayList<>();
@@ -138,10 +139,14 @@ public class UserOperation implements Operation{
     }
 
     private void addItemShopping(Item product) {
+        this.total = 0;
 
         UserOperation.shoppingCart.add(product);
         System.out.println("Shopping Cart Items: ");
         UserOperation.shoppingCart.forEach(item -> { System.out.println(item.getItemName() + "\t" + item.getItemPrice()); });
+
+        UserOperation.shoppingCart.forEach(prod -> { this.total += prod.getItemPrice(); });
+        System.out.println("\nTotal Price: "+this.total);
         backToMenu();
     }
 
@@ -150,9 +155,13 @@ public class UserOperation implements Operation{
         UserOperation.shoppingCart.remove(product);
         System.out.println("Shopping Cart Items: ");
         UserOperation.shoppingCart.forEach(item -> { System.out.println(item.getItemName() + "\t" + item.getItemPrice()); });
+
+        this.total -= product.getItemPrice();
+        System.out.println("\nTotal Price: "+this.total);
         backToMenu();
     }
 
+    @Override
     public void goodBye() {
         try {
             reader.close();
