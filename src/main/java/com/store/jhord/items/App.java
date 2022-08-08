@@ -1,11 +1,10 @@
 package com.store.jhord.items;
-import operational.*;
+import operational.Privilege;
 
 public class App 
 {
     public static void main( String[] args )
     {
-        Operation execute = new UserOperation();
-        execute.menu();
+        new Privilege().accountTypeValidation();
     }
 }
