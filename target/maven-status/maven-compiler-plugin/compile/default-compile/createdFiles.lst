@@ -1,0 +1,11 @@
+dataobjects\ItemJDBC.class
+dataobjects\LoginJDBC.class
+com\store\jhord\items\App.class
+operational\Privilege.class
+data\DBConnection.class
+domain\Login.class
+dataobjects\Database.class
+operational\AdminOperation.class
+domain\Item.class
+operational\Operation.class
+operational\UserOperation.class
